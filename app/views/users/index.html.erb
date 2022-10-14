@@ -1,0 +1,32 @@
+<h3> Users </h3>
+<ul>
+    <% @users.each do |user| %>
+        <%= next if user.id == current_user.id %>
+        <li>
+            <%= user.username %>
+
+            <% sent = FriendRequest.where(
+                request_sender_id: current_user.id, 
+                request_receiver_id: user.id
+                ) %>
+
+            <% already_friend = Friend.where(
+                user_id: current_user.id,
+                users_friend_id: user.id
+            ) %>
+            
+            <% if already_friend.empty? %>
+                <% if sent.empty? %>
+                    <%= form_tag("/friend_requests", method: "post") do %>
+                        <%= hidden_field_tag(:request_receiver_id, user.id) %>
+                        <%= submit_tag('send request') %>
+                    <% end %>
+                <% else %>
+                    <%= form_tag friend_request_path(sent[0].id), method: "delete" do %>
+                        <%= submit_tag("cancel request") %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </li>
+    <% end %>
+</ul>

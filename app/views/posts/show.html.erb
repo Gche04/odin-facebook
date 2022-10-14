@@ -1,0 +1,28 @@
+
+<%= link_to "post", posts_path %><br>
+
+<%= @post.body %><br><br>
+
+    <%= form_tag("/comments", method: "post") do %>
+        <%= hidden_field_tag(:commentable_id, @post.id) %>
+        <%= text_area_tag('body') %>
+        <%= submit_tag('done') %>
+    <% end %><br>
+
+<ul>
+    <% @comments.each do |comment| %>
+        <li>
+            <%= comment.body %>
+
+            <% can_delete = false %>
+            <% can_delete = true if comment.commenter_id == current_user.id || @post.user_id == current_user.id %>
+
+            <% if can_delete %>
+                <%= form_tag comment_path(comment.id), method: "delete" do %>
+                    <%= hidden_field_tag(:post_id, @post.id) %>
+                    <%= submit_tag("delete") %>
+                <% end %>
+            <% end %>
+        </li>
+    <% end %>
+</ul>

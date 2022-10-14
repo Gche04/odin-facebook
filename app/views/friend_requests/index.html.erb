@@ -1,0 +1,26 @@
+
+<ul>
+    <% @requests.each do |request| %>
+        <li>
+            <%= request.request_sender.username %>
+
+            <% already_friend = Friend.where(
+                        user_id: current_user.id,
+                        users_friend_id: request.request_sender.id
+                    ) %>
+
+            <% if already_friend.empty? %>
+                <%= form_tag("/friends", method: "post") do %>
+                    <%= hidden_field_tag(:users_friend_id, request.request_sender.id) %>
+                    <%= hidden_field_tag(:req_id, request.id) %>
+                    <%= submit_tag('accept request') %>
+                <% end %>
+            <!--<% else %>
+                <%= form_tag friend_path(already_friend[0].id), method: "delete" do %>
+                    <%= submit_tag("delete friend") %>
+                <% end %>
+            -->
+            <% end %>
+        </li>        
+    <% end %>
+</ul>
