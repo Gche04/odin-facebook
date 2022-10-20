@@ -1,4 +1,4 @@
-
+<h3> friend request </h3>
 <ul>
     <% @requests.each do |request| %>
         <li>
@@ -15,11 +15,6 @@
                     <%= hidden_field_tag(:req_id, request.id) %>
                     <%= submit_tag('accept request') %>
                 <% end %>
-            <!--<% else %>
-                <%= form_tag friend_path(already_friend[0].id), method: "delete" do %>
-                    <%= submit_tag("delete friend") %>
-                <% end %>
-            -->
             <% end %>
         </li>        
     <% end %>

@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "posts#index"
   resources :users
+  resources :profiles
   resources :posts
+  resources :attachments
   resources :likes
   resources :comments
   resources :friend_requests

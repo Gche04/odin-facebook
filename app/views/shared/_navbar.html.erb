@@ -1,0 +1,12 @@
+
+<% friend_request_count = FriendRequest.where(request_receiver_id: current_user.id).count%>
+
+<nav>
+   <h4>
+      <%= link_to " -your profile- ", user_path(current_user.id) %>
+      <%= link_to " -post- ", posts_path %>
+      <%= link_to " -friend request #{friend_request_count}- ", friend_requests_url %>
+      <%= link_to " -see users- ", users_url %>
+   </h4>
+   <%= button_to "Sign out", destroy_user_session_path, method: :delete %><br>
+</nav>

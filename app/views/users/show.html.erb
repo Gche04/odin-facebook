@@ -1,0 +1,39 @@
+
+<h3> user info </h3>
+<% is_account_owner = false %>
+<% if current_user.id == @user.id %>
+    <% is_account_owner = true %>
+<% end %>
+
+<%= link_to "friends", friend_path(@user.id) %><br>
+<%= link_to "edit registration", edit_user_registration_path if is_account_owner %><br><br>
+
+<div>
+    <div> name: <%= @user.username %></div>
+    <% if @profile %>
+        <div><%= image_tag @profile.avatar if @profile.avatar.attached? %></div>
+        <div> other name: <%= @profile.other_name %></div>
+        <div> gender: <%= @profile.gender %></div>
+        <div> country: <%= @profile.country %></div><br><br>
+
+        <%= link_to "update your profile", edit_profile_path(current_user.profile.id) if is_account_owner %>
+        
+    <% end %><br><br>
+
+    <% unless @profile %>
+        <%= link_to "create your profile", new_profile_url if is_account_owner %>
+    <% end %>
+</div>
+
+<div>
+    <div> post </div>
+    <ul>
+        <% @posts.each do |post| %>
+          <li><%= post.body %></li>
+        <% end %>
+    </ul>
+</div>
+
+
+
+

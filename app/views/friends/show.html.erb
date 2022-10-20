@@ -1,0 +1,19 @@
+<h3> friends </h3>
+
+<ul>
+    <% @friends.each do |friend| %>
+        <li>
+            <% if friend.user_id == current_user.id %>
+                <%= friend.users_friend.username %>
+            <% else %>
+                <%= friend.user.username %>
+            <% end %>
+
+            <% if current_user.id == friend.user_id || current_user.id == friend.users_friend_id %>
+                <%= form_tag friend_path(friend.id), method: "delete" do %>
+                    <%= submit_tag("delete friend") %>
+                <% end %>
+            <% end %>
+        </li>
+    <% end %>
+</ul>

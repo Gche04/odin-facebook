@@ -1,16 +1,6 @@
 
-<% friend_request_count = FriendRequest.where(request_receiver_id: current_user.id).count%>
+<h3> feeds </h3>
 
-<div>
-   <h4>
-        <%= link_to "friend request #{friend_request_count}", friend_requests_url %>
-        <%= link_to "see users", users_url %>
-   </h4>
-   <%= button_to "Sign out", destroy_user_session_path, method: :delete %><br>
-</div>
-
-
-<!--<%= link_to "Edit profile", edit_user_registration_path %><br><br>-->
 <div>
     <%= form_tag("/posts", method: "post") do %>
         <%= label_tag 'body', 'create post' %><br>
@@ -22,7 +12,11 @@
 <ul>
     <% @posts.each do |post| %>
         <li> 
-            <%= post.body %><br>
+            <%= link_to post.user.username, user_path(post.user.id) %><br>
+            <div>
+                <%= post.body %><br>
+            </div>
+
             <div>
                 <%= post.likes.length %>
 
@@ -42,10 +36,6 @@
                 <%= post.comments.length %><br>
                 <%= link_to "comment", post_path(post) %><br>
 
-                <!--<%= turbo_frame_tag post do %>
-                    <%= link_to "comment", post_path(post) %>
-                <% end %>-->
-                
                 <% if current_user.id == post.user_id %>
                     <%= link_to "edit", edit_post_path(post.id) %>
                     <%= button_to "delete", post_path(post.id), method: :delete%><br>

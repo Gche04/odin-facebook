@@ -1,0 +1,25 @@
+<%= form_with model: profile do |form| %>
+  <div>
+    <%= form.label :avatar %>
+    <%= form.file_field :avatar %>
+  </div>
+  
+  <div>
+    <%= form.label :other_name %><br>
+    <%= form.text_field :other_name %>
+  </div>
+
+  <div>
+    <%= form.label :gender %><br>
+    <%= form.text_field :gender %><br>
+  </div>
+
+  <div>
+    <%= form.label :country %><br>
+    <%= form.text_field :country %><br>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

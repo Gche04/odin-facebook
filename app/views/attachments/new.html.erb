@@ -1,0 +1,15 @@
+<%= form_with model: @attachment do |form| %>
+  <div>
+    <%= form.label :images %>
+    <%= form.file_field :images %>
+  </div>
+  
+  <div>
+    <%= form.label :caption %><br>
+    <%= form.text_area :caption %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
